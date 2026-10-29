@@ -1,0 +1,7 @@
+<!doctype html><meta charset="utf-8"><title>ステージの移動範囲</title><style>body{background:#111;color:#eee;font:14px sans-serif;margin:16px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}canvas{width:100%}h2{font-size:14px}</style><h1>足元の移動境界（緑）</h1><div class="grid"></div><script>
+fetch('../game.js').then(r=>r.text()).then(s=>{
+ const polygons=JSON.parse(s.match(/const stageArenas=(\[[\s\S]*?\n  \]);/)[1]);
+ ['temple','necropolis','venom-mire','infernal-forge'].forEach((name,i)=>{
+ const box=document.createElement('section');box.innerHTML='<h2>STAGE '+(i+1)+' · '+name+'</h2><canvas width="1280" height="720"></canvas>';document.querySelector('.grid').append(box);const c=box.querySelector('canvas').getContext('2d'),image=new Image();image.onload=()=>{c.drawImage(image,0,0,1280,720);c.beginPath();polygons[i].forEach(([x,y],j)=>j?c.lineTo(x,y):c.moveTo(x,y));c.closePath();c.fillStyle='#64ff9918';c.fill();c.strokeStyle='#8dffac';c.lineWidth=3;c.stroke();};image.src='../assets/'+name+'.png';
+ });
+});</script>

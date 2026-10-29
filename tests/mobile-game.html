@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ja">
+<head><base href="../">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#101719">
+  <title>ASHEN VOW — 灰の誓い</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23101719'/%3E%3Cpath d='M16 3L19 19H13ZM9 20H23M16 20V29' fill='%23e8cf96' stroke='%23e8cf96' stroke-width='2'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="tests/mobile-preview.css">
+</head>
+<body>
+<main id="game" aria-label="灰の誓い アクションゲーム">
+  <canvas id="world" width="1280" height="720" aria-label="ゲーム画面。WASDで移動、クリックまたはJで移動方向へ攻撃"></canvas>
+  <div class="vignette"></div>
+  <header class="top-hud">
+    <section class="hero-hud" aria-label="プレイヤーステータス">
+      <div class="portrait frame"><canvas id="portrait" width="76" height="76"></canvas></div>
+      <div class="vitals"><div class="hero-name">灰の剣士 <span>THE ASHEN ONE</span></div>
+        <div id="hearts" class="hearts" role="img" aria-label="体力"></div>
+      </div>
+    </section>
+    <div class="wordmark">ASHEN VOW<span>灰 の 誓 い</span></div>
+    <section class="location"><div class="location-name"><b id="location-title">忘れられた聖堂</b><span id="location-subtitle">RUINED TEMPLE · STAGE 01</span></div><canvas class="frame" id="minimap" width="164" height="116" aria-label="敵の位置を示すミニマップ"></canvas><div class="wave">☠ <span id="wave-label">WAVE 01 <em>/ 05</em></span></div><div id="enemy-count">聖堂に足を踏み入れよ</div></section>
+  </header>
+  <div id="wave-banner" class="wave-banner"><small>THE DEAD HAVE AWAKENED</small><strong>WAVE I</strong><span>忘れられた者たち</span></div>
+  <aside id="combo" class="combo"><span>COMBO</span><strong id="combo-num">0</strong><small id="combo-rating">鋭い一撃</small><div><i id="combo-fill"></i></div></aside>
+  <div id="toast" role="status" class="toast"></div>
+  <footer class="bottom-hud">
+    <div class="skills" aria-label="スキル">
+      <button class="skill potion" data-action="heal" aria-label="Q 回復薬"><span class="skill-icon">⚱</span><span id="potions" class="charges">3</span><kbd>Q</kbd><label>回復薬</label><i class="cooldown"></i></button>
+      <button class="skill whirlwind" data-action="whirl" aria-label="E 旋風斬り"><span class="skill-icon">↻</span><span class="recharge-label">5秒</span><kbd>E</kbd><label>旋風斬り</label><i class="cooldown"></i><b class="cd-number"></b></button>
+      <button class="skill nova" data-action="nova" aria-label="R 蒼炎の衝撃"><span class="skill-icon">✧</span><span class="recharge-label">9秒</span><kbd>R</kbd><label>蒼炎の衝撃</label><i class="cooldown"></i><b class="cd-number"></b></button>
+      <span class="skill-divider"></span>
+      <button class="skill attack" data-action="attack" aria-label="J 剣で攻撃"><span class="skill-icon">⚔</span><kbd>J / CLICK</kbd><label>斬撃</label><i class="cooldown"></i></button>
+      <button class="skill dash" data-action="dash" aria-label="Space 回避"><span class="skill-icon">➶</span><kbd>SPACE</kbd><label>回避</label><i class="cooldown"></i><b class="cd-number"></b></button>
+    </div>
+    <div class="bottom-center"><div class="key-guide"><kbd>W A S D</kbd> 移動 <span>·</span> 移動方向へ攻撃 <span>·</span> <kbd>ESC</kbd> 一時停止</div><span class="flavor">“ 灰となっても、誓いは消えない。 ”</span></div>
+    <div class="right-bottom"><div class="settings"><button id="sound" aria-label="音を切り替える" title="音を切り替える">♫ <span>ON</span></button><button id="pause" aria-label="一時停止" title="一時停止">Ⅱ</button><button id="fullscreen" aria-label="全画面" title="全画面">⛶</button></div><div class="loot frame"><span class="gold">◈ <b id="gold">0</b></span><span class="crystal">♦ <b id="crystals">0</b></span><span class="key">⚿ <b id="keys">0</b></span></div></div>
+  </footer>
+  <div id="touch-move" role="group" aria-label="移動スティック。倒す方向へ移動、指を離すと停止" hidden><span class="stick-ring"></span><span id="stick-knob"></span><span class="stick-label">移動</span></div>
+  <section id="shop" class="shop-panel hidden" tabindex="-1" aria-labelledby="shop-title">
+    <div class="shop-eyebrow">MERCHANT'S REFUGE · INTERMISSION</div>
+    <div class="shop-heading"><h2 id="shop-title">旅路の商店</h2><div class="shop-wallet"><span>◈ <b id="shop-gold">0</b></span><span>♦ <b id="shop-crystals">0</b></span></div></div>
+    <p class="shop-intro">コインで装備を、結晶で技を。次の戦い方を選ぼう。</p>
+    <nav class="shop-categories" aria-label="商品カテゴリ"><button id="category-equipment" aria-pressed="true">◈ コイン強化</button><button id="category-runes" aria-pressed="false">♦ 結晶強化</button><button id="category-supplies" aria-pressed="false">補給</button></nav>
+    <div class="shop-items" id="shop-items"></div>
+    <p id="shop-owned" class="shop-owned"></p>
+    <p id="shop-inventory" class="shop-inventory"></p>
+    <p id="shop-message" class="shop-message" role="status"></p>
+    <button id="shop-next" class="shop-next">次のステージへ <span>砂に沈んだ王墓 →</span></button>
+    <small class="shop-note">購入せずに進めます · Enterでも出発</small>
+  </section>
+  <section id="overlay" class="overlay">
+    <div class="intro-ornament">✦</div><div class="intro-eyebrow" id="overlay-eyebrow">A DARK FANTASY SURVIVAL</div><h1 id="overlay-title">ASHEN VOW</h1><div class="intro-jp" id="overlay-subtitle">灰の誓い</div><div class="intro-rule"><span>◆</span></div>
+    <p id="overlay-description">忘れられた聖堂に、最後の灯がともる。<br>剣を取り、五つの襲撃を生き延びろ。</p>
+    <button id="start" class="start-button">聖堂に挑む <span>↗</span></button><button id="stage-two" class="stage-select">STAGE 02 · 砂に沈んだ王墓から遊ぶ</button><button id="stage-three" class="stage-select">STAGE 03 · 毒霧の沼地から遊ぶ</button><button id="stage-four" class="stage-select">STAGE 04 · 灼熱の鍛冶場から遊ぶ</button><div id="intro-controls" class="intro-controls"><span><kbd>WASD</kbd> 移動</span><span><kbd>J / クリック</kbd> 攻撃</span><span><kbd>SPACE</kbd> 回避</span></div><small class="intro-note" id="intro-note">全4ステージ · 各5ウェーブ · ステージ間で商店へ</small>
+  </section>
+</main>
+<script src="hero-motion.js"></script>
+<script src="skeleton-motion.js"></script>
+<script src="enemy-motion.js"></script>
+<script src="game.js"></script>
+</body>
+</html>

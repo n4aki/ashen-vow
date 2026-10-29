@@ -1,0 +1,8 @@
+node_modules/
+dist/
+site-release/
+*.tar.gz
+*.zip
+.openai/
+.env
+.env.*

@@ -1,0 +1,19 @@
+# Background art provenance
+
+Tool: built-in image_gen (not CLI).
+
+Output: `assets/temple.png`
+
+Final prompt:
+
+Use case: stylized-concept. Asset type: actual background art for a playable 2D pixel art dark fantasy action game. Generate one wide 16:9 1536x864 image. The supplied conversation reference is mood guidance only. Depict an EMPTY ruined gothic temple combat arena from a fixed high overhead 3/4 isometric camera (like a classic pixel-art action RPG). Extremely detailed pixel art, crisp individual pixels, rich hand-crafted 1990s dark fantasy game aesthetic. Large completely EMPTY walkable stone floor occupies middle 65 percent, from x=20% to 80%, y=20% to 86%, made of irregular large gray cobblestone slabs and subtle moss, no obstacles there. Border composition: on far left a large hooded stone angel statue gripping a sword, dark teal water moat and lilies, ruined balustrades and vines; on far right broken columns, a small wooden treasure chest and barrels tucked into edge; along bottom corners broken stone arches and staircase, hanging faded burgundy banners; along top edge distant arched doorway, crumbling columns, ivy and rubble. Four orange flaming braziers around outer edges, moody warm flame illumination and cool blue-green shadows. Center floor unobstructed with a faint circular ancient etched symbol. Detailed atmospheric depth, dark but readable floor. Absolutely NO characters, NO enemies, NO skeletons, NO creatures, NO UI, NO HUD, NO text, NO letters, NO logos, NO attack effects. Actual game level background, not a screenshot with interface.
+
+# Character art provenance
+
+Tool: built-in image_gen (not CLI).
+
+Output: `assets/characters.png`, genuine RGBA transparency. Individual sprites are selected by source rectangles at runtime; the original generated asset is preserved.
+
+Final prompt:
+
+Use case: stylized-concept. Asset type: production sprite sheet PNG with actual transparent alpha background for pixel art RPG. Create one wide horizontal image aspect ratio 3:1, divided invisibly into FOUR equal-width cells in a SINGLE ROW. Each cell contains ONE fully visible standing character, with small margins, entire weapons fully visible, feet aligned at exactly 88 percent of total image height. The 4 characters are all separate with plenty of transparent gutter between cells; no overlapping characters. Cell 1 far left: young male anime fantasy swordsman, messy dark navy hair, a burgundy red scarf and long flowing red cape trailing left, dark blue detailed armor with silver highlights, wielding a silver sword pointed diagonally right and down in an action ready stance. Cell 2: undead skeleton soldier with detailed ivory bones, weathered rusty shoulder armor, leather scraps, small round shield and a longsword. Cell 3: sinister necromancer in long black and purple hooded robe, glowing magenta eyes, holding a tall staff with a glowing purple crystal. Cell 4 far right: massive black-armored knight with horned full helmet, battered silver edges and muted gold trim, black red cape, big ornate shield and heavy sword. All viewed from SAME above-front three-quarter game camera, facing slightly to the right. Authentic exquisitely detailed hand-pixeled 32-bit sprite art with visible crisp square pixels, intricate dithering and highlights, dark outlines, NOT simple geometric icons, NOT vector illustrations. Like highly detailed dark fantasy action RPG sprites with around 64x96 logical pixels per character, enlarged nearest-neighbor. Entire image is just these FOUR sprites on a genuinely transparent background. Absolutely NO background scene, NO floor, NO text, NO labels, NO cell borders, NO checkerboard drawn into the image, NO UI, NO cast shadows. Keep all sprites the same visual style and baseline; knight about 1.25 times the height of swordsman. Characters from left to right: swordsman, skeleton, purple mage, armored knight. 3:1 wide transparent spritesheet.

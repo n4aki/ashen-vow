@@ -1,0 +1,1 @@
+{"name":"ashen-vow","version":"1.0.0","private":true,"description":"Pixel-art temple survival action game","scripts":{"start":"node --preserve-symlinks --preserve-symlinks-main server.cjs","check":"node --preserve-symlinks --preserve-symlinks-main --check game.js","test":"node --preserve-symlinks --preserve-symlinks-main --test tests/game.test.cjs"}}

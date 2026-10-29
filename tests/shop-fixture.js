@@ -1,0 +1,1 @@
+fetch('game.js').then(r=>r.text()).then(source=>{const script=document.createElement('script');script.textContent=source.replace(/\n\}\)\(\);\s*$/,'\nstart();gold=200;crystals=6;finish(true);\n})();');document.body.append(script);});
